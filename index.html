@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue js 기초</title>
+    <!-- Vue js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      {{person.name}}은 {{person.age}}살이야. {{nextYear("안녕! ")}}
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          // 변수
+          person: {
+            name: "스폰지밥",
+            age: 20,
+          },
+        },
+        methods: {
+          nextYear(hi) {
+            return (
+              hi +
+              this.person.name +
+              "은 내년에 " +
+              (this.person.age + 1) +
+              "살이야"
+            );
+          },
+          otherMethod() {
+            this.nextYear();
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
