@@ -9,43 +9,41 @@
   </head>
   <body>
     <div id="app">
-      <input v-bind:type="type" :value="inputData" />
-      <br />
-      {{person.name}}은 {{person.age}}살이야. {{nextYear("안녕! ")}}
-      <br />
-      <a :href="getLink('naver')" target="_blank">네이버 바로가기</a>
-      <a :href="getLink('google')" target="_blank">구글 바로가기</a>
-      바인딩(Binding)이란, 데이터를 특정 위치에 동적으로 연결하는 것. Vue에서는
-      속성에 v-bind:를 사용하여 데이터와 연결할 수 있다. 그리고 대부분 태그의
-      속성에 사용할 수 있다. v-bind:를 :로 생략가능.
+      <form v-on:submit.prevent="onSubmit">
+        <input type="text" v-model="inputData" /><br />
+        입력값: {{inputData}}<br />
+        {{num}}<br />
+        <button v-on:click="minus" type="button">-</button>
+        <button v-on:click="plus" type="button">+</button><br />
+        <button type="submit">submit</button>
+      </form>
+      <!-- 
+          v-on:을 사용하여 이벤트를 사용할 수 있다. v-on은 @로 대체 가능하다. 그리고
+          .prevent를 넣어서 event.preventDefault를 사용할 수 있다!
+
+           <input type="text" :value="inputData" @keyup="updateValue" />
+           updateValue(e) {
+           this.inputData = e.target.value;
+           },
+            v-model을 사용하면 위의 코드를 생략하고 사용할 수 있다...
+         -->
     </div>
     <script>
       new Vue({
         el: "#app",
         data: {
-          // 변수
-          person: {
-            name: "스폰지밥",
-            age: 20,
-          },
-          inputData: "hello",
-          type: "text",
+          num: 0,
+          inputData: "",
         },
         methods: {
-          nextYear(hi) {
-            return (
-              hi +
-              this.person.name +
-              "은 내년에 " +
-              (this.person.age + 1) +
-              "살이야"
-            );
+          plus() {
+            return this.num++;
           },
-          otherMethod() {
-            this.nextYear();
+          minus() {
+            return this.num--;
           },
-          getLink(link) {
-            return "http://www." + link + ".com";
+          onSubmit() {
+            alert("submit");
           },
         },
       });
